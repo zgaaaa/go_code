@@ -1,34 +1,20 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-// Person 结构体Person
-type Person struct {
-	Name string
+// Circle 圆
+type Circle struct {
+	radis float64 // 半径
 }
 
-// 给结构体Person绑定一个方法
-func (p Person) name() {
-	fmt.Println(p.Name, "是一个好人")
-}
-
-func (p Person) jisuan(n int) {
-	sum := 0
-	for i := 1; i < n+1; i++ {
-		sum += i
-	}
-	fmt.Println(sum)
-}
-
-func (p Person) getsum(a, b int) {
-	fmt.Println(a + b)
+func (c *Circle) xiugai() float64 {
+	(*c).radis = 10
+	return c.radis
 }
 
 func main() {
-	var p1 Person
-	p1.Name = "tom"
-	p1.jisuan(1000)
-	p1.getsum(10, 20)
+	c1 := Circle{5}
+	c1.radis = 20
+	c1.xiugai()
+	fmt.Println(c1.radis)
 }
