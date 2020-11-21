@@ -1,31 +1,19 @@
-package main
+package demo
 
-import (
-	"fmt"
-	"strings"
-	"time"
-)
-
-func lengthOfLongestSubstring(s string) int {
-	start, end := 0, 0
-	for i := 0; i < len(s); i++ {
-		index := strings.Index(s[start:i], string(s[i]))
-		if index == -1 {
-			if i+1 > end {
-				end = i + 1
-			}
-		} else {
-			start += index + 1
-			end += index + 1
-		}
-	}
-	return end - start
+// student 学生
+type student struct {
+	Name string
+	age  float64
 }
 
-func main() {
-	startime := time.Now()
-	str1 := "abcabcbb"
-	fmt.Println(lengthOfLongestSubstring(str1))
-	endtime := time.Since(startime)
-	fmt.Println(endtime)
+// Getstudent 获取
+func Getstudent(n string, a float64) *student {
+	return &student{
+		Name: n,
+		age:  a,
+	}
+}
+
+func (s student) Getage() float64 {
+	return s.age
 }
