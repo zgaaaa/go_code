@@ -1,19 +1,33 @@
 package demo
 
-// student 学生
-type student struct {
-	Name string
-	age  float64
+import (
+	"fmt"
+	"strconv"
+)
+
+// account 结构体
+type account struct {
+	zhanghao int
+	yue      float64
+	mima     int
 }
 
-// Getstudent 获取
-func Getstudent(n string, a float64) *student {
-	return &student{
-		Name: n,
-		age:  a,
+// Getaccount 获取结构体
+func Getaccount() *account {
+	return &account{}
+}
+
+// Setzhanghao 更改账号
+func (a *account) Setzhanghao(zhanghao string) {
+	zhanghao1, _ := strconv.Atoi(zhanghao)
+	if len(zhanghao) >= 6 && len(zhanghao) <= 10 {
+		a.zhanghao = zhanghao1
+	} else {
+		fmt.Println("输入有误")
 	}
 }
 
-func (s student) Getage() float64 {
-	return s.age
+// Getzhanghao 获取账号
+func (a *account) Getzhanghao() int {
+	return a.zhanghao
 }
