@@ -2,19 +2,33 @@ package main
 
 import "fmt"
 
-// Circle 圆
-type Circle struct {
-	radis float64 // 半径
+// Calcuator 矩形
+type Calcuator struct {
+	arr [][]int
 }
 
-func (c *Circle) xiugai() float64 {
-	(*c).radis = 10
-	return c.radis
+func (cal Calcuator) jiujiu(n int) {
+	for i := 1; i <= n; i++ {
+		for j := 1; j <= i; j++ {
+			fmt.Printf("%d * %d = %d\t", j, i, i*j)
+		}
+		fmt.Println()
+	}
+}
+
+func (cal Calcuator) zuanzhi() {
+	for i := 0; i < len(cal.arr); i++ {
+		for j := 0; j < len(cal.arr[0]); j++ {
+			fmt.Print(cal.arr[j][i])
+		}
+		fmt.Println()
+	}
 }
 
 func main() {
-	c1 := Circle{5}
-	c1.radis = 20
-	c1.xiugai()
-	fmt.Println(c1.radis)
+	var Cal Calcuator
+	//Cal.arr = make([][]int, 0)
+	Cal.arr = [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+	//Cal.jiujiu(5)
+	Cal.zuanzhi()
 }
