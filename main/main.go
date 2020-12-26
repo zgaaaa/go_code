@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go_code/Go语言基础/demo"
+	"go_code/demo"
 )
 
 func main() {
