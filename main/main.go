@@ -1,31 +1,23 @@
 package main
 
-import (
-	"encoding/json"
-	"fmt"
-)
+import "fmt"
 
-func unmarshalslice() interface{} {
-	str := `[{"age":18,"name":"sdfw","sex":"nan"},{"age":23,"name":"为如果","sex":"nv"}]`
-	var slice []map[string]interface{} // 提前定义好接受反序列化数据的变量
-	json.Unmarshal([]byte(str), &slice) // 必须传入指针
-	return slice
-}
+var map1 map[int]int
 
-func unmarshalstruct() interface{} {
-	str := `{"name":"qwe","age":14,"sex":"nan"}`
-	type Monster struct {
-		Name string `json:"name"` // tag标签,可以理解为在序列化时对字段重命名
-		Age  int    `json:"age"`
-		Sex  string `json:"sex"`
+func text(n int) {
+	res := 1
+	for i := 1; i <= n; i++ {
+		res *= i
 	}
-	var monster Monster
-	json.Unmarshal([]byte(str), &monster) // 必须传入指针
-	return monster
+	map1[n] = res
 }
 
 func main() {
-	fmt.Println(unmarshalslice())
-	fmt.Println(unmarshalstruct())
+	for i := 1; i <= 200; i++ {
+		go text(i)
+	}
+	for index, v := range map1 {
+		fmt.Printf("%v : %v\n", index, v)
 
+	}
 }
