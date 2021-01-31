@@ -1,23 +1,39 @@
 package main
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+	"time"
+)
 
-var map1 map[int]int
-
-func text(n int) {
-	res := 1
-	for i := 1; i <= n; i++ {
-		res *= i
+func text(ctx context.Context, exitchan chan int, i int) {
+	defer func() { exitchan <- 1 }()
+	for {
+		select {
+		case <-ctx.Done():
+			fmt.Printf("协程%v退出,结束监控\n", i)
+			return
+		default:
+			fmt.Printf("协程%v,正在监控\n", i)
+			time.Sleep(time.Second)
+		}
 	}
-	map1[n] = res
+
 }
 
 func main() {
-	for i := 1; i <= 200; i++ {
-		go text(i)
-	}
-	for index, v := range map1 {
-		fmt.Printf("%v : %v\n", index, v)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second/2)
+	exitchan := make(chan int, 5)
 
+	for i := 1; i <= 5; i++ {
+		go text(ctx, exitchan, i)
+	}
+
+	time.Sleep(time.Second)
+	cancel()
+	fmt.Println(ctx.Err())
+	// 退出
+	for i := 1; i <= 5; i++ {
+		<-exitchan
 	}
 }
