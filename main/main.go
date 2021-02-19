@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-func text(ctx context.Context, exitchan chan int, i int) {
-	defer func() { exitchan <- 1 }()
+func text(ctx context.Context, exitChan chan int, i int) {
+	defer func() { exitChan <- 1 }()
 	for {
 		select {
 		case <-ctx.Done():
@@ -18,15 +18,14 @@ func text(ctx context.Context, exitchan chan int, i int) {
 			time.Sleep(time.Second)
 		}
 	}
-
 }
 
 func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second/2)
-	exitchan := make(chan int, 5)
+	exitChan := make(chan int, 5)
 
 	for i := 1; i <= 5; i++ {
-		go text(ctx, exitchan, i)
+		go text(ctx, exitChan, i)
 	}
 
 	time.Sleep(time.Second)
@@ -34,6 +33,6 @@ func main() {
 	fmt.Println(ctx.Err())
 	// 退出
 	for i := 1; i <= 5; i++ {
-		<-exitchan
+		<-exitChan
 	}
 }
