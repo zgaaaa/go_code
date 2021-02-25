@@ -7,7 +7,6 @@ import (
 
 func text(stopchan chan bool, exitchan chan int, i int) {
 	defer func() { exitchan <- 1 }()
-
 	for {
 		select {
 		case <-stopchan:
@@ -15,10 +14,9 @@ func text(stopchan chan bool, exitchan chan int, i int) {
 			return
 		default:
 			fmt.Printf("协程%v,正在监控\n", i)
-			time.Sleep(time.Second*2)
+			time.Sleep(time.Second * 2)
 		}
 	}
-
 }
 
 func main() {

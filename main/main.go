@@ -23,11 +23,9 @@ func text(ctx context.Context, exitChan chan int, i int) {
 func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second/2)
 	exitChan := make(chan int, 5)
-
 	for i := 1; i <= 5; i++ {
 		go text(ctx, exitChan, i)
 	}
-
 	time.Sleep(time.Second)
 	cancel()
 	fmt.Println(ctx.Err())
